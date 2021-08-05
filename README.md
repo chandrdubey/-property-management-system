@@ -1,4 +1,4 @@
-# Property Managemnet System
+# Property Management System
 
 ## Technology Stack
 1. React.js
