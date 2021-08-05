@@ -6,10 +6,10 @@ import axios from "axios";
 //content type to send with all POST requests
 axios.defaults.headers.post["Content-Type"] = "application/json";
 //authenticate to the base with the API key
-axios.defaults.headers["Authorization"] = "Bearer keyfhMqVDRkY8qTdV";
-
+axios.defaults.headers["Authorization"] = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
+// console.log(process.env.REACT_APP_AIRTABLE_API_KEY)
 var Airtable = require("airtable");
-var base = new Airtable({ apiKey: "keyfhMqVDRkY8qTdV" }).base(
+var base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_API_KEY }).base(
   "apphVtN0AhCleeM2S"
 );
 
@@ -24,7 +24,7 @@ class App extends Component {
   }
   componentDidMount() {
     axios(
-      "https://api.airtable.com/v0/apphVtN0AhCleeM2S/Table%201?api_key=keyfhMqVDRkY8qTdV"
+      `https://api.airtable.com/v0/apphVtN0AhCleeM2S/Table%201?api_key=${process.env.REACT_APP_AIRTABLE_API_KEY}`
     )
       .then((res) => {
         this.setState({ properties: res.data.records });
@@ -56,8 +56,13 @@ class App extends Component {
         console.error(err);
         return;
       }
-   //   console.log(records);
+    
+   
     });
+    this.setState({
+      addProperty: false,
+      index: this.state.index+1,
+    })
   };
   handleDelete = (id) => {
     base("Table 1").destroy([id], function (err, deletedRecords) {
@@ -74,7 +79,7 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.properties.length > 0) console.log(this.state.properties);
+
     return (
       <>
         <Navbar />
