@@ -26,7 +26,7 @@ class FormAddProperty extends Component {
        
       };
     render() {
-        console.log(this.props);
+       
         return (
             <div className="formStyle text-center mx-auto">
                 <form className="form-style mx-auto "
